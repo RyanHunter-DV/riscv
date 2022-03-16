@@ -1,0 +1,8 @@
+design :orig_idecoder do #{
+	spec +=<<-DOC
+	instruction decoder, has following features:
+	1.receive instructions from ifetcher once the fifo is not empty, receive 4-instructions each cycle
+	2.decode the instructions into micro commands, and send to a fifo {iStartAddr,iData}
+	DOC
+	
+end #}

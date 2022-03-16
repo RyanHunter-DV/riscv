@@ -1,0 +1,10 @@
+sigpool :fetchSignals, :iw=>32,:pcw=>28 do #{
+	signal :fetchReqVld,:out
+	signal :fetchReqPC,:out, feature.pc
+	signal :fetchReqAck, :in
+
+	signal :fetchRspVld, :in
+	signal :fetchRspInstr, :in, feature.iw*4
+	signal :fetchRspAck, :in
+	
+end #}

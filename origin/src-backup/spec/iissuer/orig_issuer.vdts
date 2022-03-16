@@ -1,0 +1,9 @@
+design :orig_issuer do ##{
+	spec +=<<-DOC
+	features:
+	1.to issue micro commands according to the target executing stage, issuing cmds with its
+	physical address
+	2.only can issue cmds that has no relations with adjacent cmds.
+	DOC
+
+end ##}

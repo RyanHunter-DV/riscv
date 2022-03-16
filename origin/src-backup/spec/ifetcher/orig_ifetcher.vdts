@@ -1,0 +1,27 @@
+design :orig_ifetcher do #{
+	spec +=<<-doc
+	This is the instruction fetcher that can issue a instruction fetch request
+	to L1-ICache, and give back 4 instructions from the cache.
+	Features:
+	1.issue instruction fetch request cycle by cycle
+	2.receive instruction response from ICache, and send to decoder, no buffer between fetcher and decoder
+	3.receive jump request, and change PC
+	doc
+
+	signal :iClk,:in
+	signal :iResetN,:in	
+	fetchSignals :fetchI
+
+	decodeSignals :decodeI
+
+	ifetcherBlock_reqIssuer :req do
+		spec +=<<-doc
+		
+		doc
+	end
+
+	
+
+
+
+end #}

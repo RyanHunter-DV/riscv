@@ -1,0 +1,66 @@
+require 'orig_ifetcher'
+design :orig_top do #{
+	spec =<<-DOC
+		this is the top of original cpu core, which based on risc-v 32b instruction set.
+		And it's the very beginning project of the CPU design.
+	DOC
+
+	## block, use to define a place holder for design/component that are currently not
+	## fully designed yet. block can be used to display some of the conceptual diagram
+	## or design hierarchy
+	## the name that specified in block should be determined as a final deisng/component
+	## name.
+
+	orig_ifetcher :u_ifetcher do #{
+		spec +=<<-DOC
+		the ifetcher is an instruction fetch module, to get instructions cycle by cycle
+		with the incrementing PC, until has a jump request appeared.
+		this fetcher supports maximum 4 instruction fetch at each cycle.
+		DOC
+		iClk parent.iClk
+		iResetN parent.iResetN
+		fetchI u_idecoder.fetchI ## TBD
+	end #}
+
+	block :orig_idecoder, :type=>:design do
+		spec +=<<-DOC
+			the instruction decode module are used to decode the input instructions into a self-defined
+			micro instructions, to avoid the confliction, here we call these micro-instructions as micro
+			commands.
+		DOC
+	end
+
+	block :orig_iissuer, :type=>:design do
+		spec +=<<-DOC
+			this is instruction issuer, used to issue micro commands into executing stage, for multiple
+			commands issuing, the issuer need to consider the relationships between two different commands.
+		DOC
+	end
+
+	block :orig_executor, :type=>:design do
+		spec +=<<-DOC
+			command executor, to execute commands, supports for all micro commands
+		DOC
+	end
+
+	block :orig_controller, :type=>:design do
+		spec +=<<-DOC
+			this is the control center which has some internal status need to be updated, and special/common
+			registers.
+		DOC
+	end
+
+	block :orig_cache, :type=>:design do
+		spec +=<<-DOC
+			the original cpu supports L1 and L2 cache, both of which are encapsulated into the orig_cache
+			module, ifetcher will directly get instructions from the L1-ICache, while load/store commands
+			will operate on L1-DCache
+		DOC
+	end
+
+	block :orig_intrCenter, :type=>:design do
+		spec +=<<-DOC
+			prcessing incoming interrupts
+		DOC
+	end
+end #}

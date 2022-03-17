@@ -19,11 +19,10 @@ module ifetcher_rcvdb #(IW=32) (
 
 	reg[IW*4-1:0] mem[7:0];
 	reg[2:0] rPtr,wPtr;
-	reg[IW*4-1:0] rRD;
 
 	assign oEmpty=(rPtr==wPtr)? 1'b1:1'b0;
 	assign oFull=(wPtr+1==rPtr)? 1'b1:1'b0;
-	assign oRD=rRD;
+	assign oRD=mem[rPtr];
 	assign resetN=iResetn&(~iClear);
 
 	always @(posedge iClk or negedge resetN) begin
@@ -36,7 +35,6 @@ module ifetcher_rcvdb #(IW=32) (
 				wPtr<=wPtr+1'b1;
 			end
 			if (iRE) begin
-				rRD<=mem[rPtr]
 				rPtr<=rPtr+1'b1;
 			end
 		end
